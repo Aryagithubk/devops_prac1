@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  backend:
+    image: aryasingh55/backend:v1
+    ports:
+      - "5002:5002"
+    networks:
+      - appnet
+    volumes:
+      - backend-data:/app
+
+  frontend:
+    image: aryasingh55/frontend:v1
+    ports:
+      - "5000:5000"
+    networks:
+      - appnet
+    volumes:
+      - frontend-data:/app
+
+networks:
+  appnet:
+    external: true
+
+volumes:
+  backend-data:
+  frontend-data:
+    
