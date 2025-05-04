@@ -3,7 +3,6 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDENTIALS = 'dockerhub-creds'
-        DOCKERHUB_USERNAME = 'aryasingh55'
         IMAGE_BACKEND = 'aryasingh55/backend:v1'
         IMAGE_FRONTEND = 'aryasingh55/frontend:v1'
         STACK_NAME = 'devopsapp'
@@ -39,30 +38,30 @@ pipeline {
 
         }
 
-        stage('Push docker images (Parallel)'){
+       stage('Push docker images (Parallel)') {
             parallel {
                 stage('Push Backend') {
                     steps {
                         script {
-                            docker.withRegistry('https://index.docker.io/v1/', "${DOCKERHUB_CREDENTIALS}") {
-                                docker.image("${IMAGE_BACKEND}").push()
+                            docker.withRegistry('https://index.docker.io/v1/', DOCKERHUB_CREDENTIALS) {
+                                docker.image(IMAGE_BACKEND).push()
                             }
-                            // }
                         }
                     }
                 }
 
-                stage('Push frontend') {
+                stage('Push Frontend') {
                     steps {
                         script {
-                            docker.withRegistry('https://index.docker.io/v1/', "${DOCKERHUB_CREDENTIALS}") {
-                                docker.image("${IMAGE_FRONTEND}").push()
+                            docker.withRegistry('https://index.docker.io/v1/', DOCKERHUB_CREDENTIALS) {
+                                docker.image(IMAGE_FRONTEND).push()
                             }
                         }
                     }
                 }
             }
         }
+
 
         stage('Deploy to docker swarm') {
             steps {
