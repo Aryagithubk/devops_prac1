@@ -14,7 +14,7 @@ pipeline {
 
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/Aryagithubk/devops_prac1.git'
+                git branch: 'main', url: 'https://github.com/Aryagithubk/devops_prac1.git'
             }
         }
 
